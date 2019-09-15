@@ -8,12 +8,8 @@ def deck_loop():
             deck.append((suit, val))
     return deck
 
-def deck_comp():
-    pass
+deck_comp = [(suit,val) for suit in SUITS for val in VALUES]
 
 if __name__ == '__main__':
-    if deck_loop() != deck_comp():
+    if deck_loop() != deck_comp:
         print('ERROR!')
-
-
-
