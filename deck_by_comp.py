@@ -9,6 +9,7 @@ def deck_loop():
     return deck
 
 deck_comp = [(suit,val) for suit in SUITS for val in VALUES]
+print(deck_comp)
 
 if __name__ == '__main__':
     if deck_loop() != deck_comp:
