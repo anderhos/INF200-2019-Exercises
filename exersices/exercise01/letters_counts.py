@@ -1,7 +1,13 @@
-#INF200 ex01 Task C
-#Counting letters
+__author__ = 'Anders Mølmen Høst'
+__email__ = 'anderhos@nmbu.no'
 
-#Defining counting letters function
+# INF200 ex01
+# Task C
+# Counting letters
+
+# Defining counting letters function
+
+
 def letter_freq(txt):
     letters_counts = {}
     for character in txt.lower():
@@ -15,6 +21,7 @@ def letter_freq(txt):
 if __name__ == "__main__":
     text = input("Please enter text to analyse: ")
 
+    # Printing sorted frequencies of letters
     frequencies = letter_freq(text)
-    for letter, count in sorted(frequencies.items()):  #printing sorted frequencies of letters
+    for letter, count in sorted(frequencies.items()):
         print('{:3}{:10}'.format(letter, count))
