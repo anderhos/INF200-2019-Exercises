@@ -1,7 +1,11 @@
-from random import randint as ran
-
 __author__ = 'Anders Mølmen Høst'
 __email__ = 'anderhos@nmbu.no'
+
+# INF200 ex01
+# Task C
+# Clean up code
+
+from random import randint as ran
 
 # Guessing the number of two dices
 

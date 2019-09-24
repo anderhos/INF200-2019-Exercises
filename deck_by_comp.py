@@ -1,3 +1,6 @@
+__author__ = 'Anders Mølmen Høst'
+__email__ = 'anderhos@nmbu.no'
+
 # INF200 ex01
 # Task A
 # Create a card deck by list comprehension
