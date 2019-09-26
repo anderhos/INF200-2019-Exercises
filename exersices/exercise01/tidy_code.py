@@ -31,16 +31,16 @@ def check_guess(your_guess, your_dices):
 if __name__ == '__main__':
 
     is_not_true = False
-    i = 3
+    number_of_guesses_left = 3
     dices = throw_dices()
-    while not is_not_true and i > 0:
+    while not is_not_true and number_of_guesses_left > 0:
         guess = guessing_game()
         is_not_true = check_guess(dices, guess)
         if not is_not_true:
             print('Wrong, try again!')
-            i -= 1
+            number_of_guesses_left -= 1
 
-    if i > 0:
+    if number_of_guesses_left > 0:
         print('You won {} points.'.format(i))
     else:
         print('You lost. Correct answer: {}.'.format(dices))
