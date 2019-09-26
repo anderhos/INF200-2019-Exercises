@@ -18,8 +18,10 @@ def deck_loop():
             deck.append((suit, val))
     return deck
 
+
 # Creating the card deck by list comprehension
-deck_comp = [(suit, val) for suit in SUITS for val in VALUES]
+def deck_comp():
+    return [(suit, value) for suit in SUITS for value in VALUES]
 
 
 # Checking if the two card decks are the same
