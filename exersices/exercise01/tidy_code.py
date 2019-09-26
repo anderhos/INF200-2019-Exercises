@@ -17,30 +17,30 @@ def guessing_game():
     return guess_a_number
 
 
-# Throw two dices
+# Throw two dice
 
 
 def throw_dices():
     return ran(1, 6) + ran(1, 6)
 
 
-def check_guess(your_guess, your_dices):
-    return your_guess == your_dices
+def check_guess(your_guess, your_dice):
+    return your_guess == your_dice
 
 
 if __name__ == '__main__':
 
-    is_not_true = False
+    has_won = False
     number_of_guesses_left = 3
-    dices = throw_dices()
-    while not is_not_true and number_of_guesses_left > 0:
+    dice = throw_dice()
+    while not has_won and number_of_guesses_left > 0:
         guess = guessing_game()
-        is_not_true = check_guess(dices, guess)
-        if not is_not_true:
+        has_won = check_guess(dices, guess)
+        if not has_won:
             print('Wrong, try again!')
             number_of_guesses_left -= 1
 
     if number_of_guesses_left > 0:
-        print('You won {} points.'.format(i))
+        print('You won {number_of_guesses_left} points.')
     else:
-        print('You lost. Correct answer: {}.'.format(dices))
+        print('You lost. Correct answer: {your_dice}.')
