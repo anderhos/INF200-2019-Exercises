@@ -8,6 +8,7 @@ Task C
 
 
 def bubble_sort(dataset):
+    # Creating a new list
     list_dataset = list(dataset)
     length_list_dataset = len(list_dataset)
 
@@ -16,10 +17,12 @@ def bubble_sort(dataset):
         for j in range(0, length_list_dataset - i - 1):
             # If the number in the next position is smaller than the current
             # Switch positions
-            if dataset[j] > dataset[j+1]:
-                dataset[j], dataset[j+1] = dataset[j+1], dataset[j]
+            if list_dataset[j] > list_dataset[j+1]:
+                list_dataset[j], list_dataset[j+1] = \
+                    list_dataset[j+1], list_dataset[j]
 
-    return dataset
+
+    return list_dataset
 
 
 if __name__ == "__main__":
