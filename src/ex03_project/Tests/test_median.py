@@ -38,3 +38,8 @@ def test_list_even():
 def test_list_ordered():
     data4 = [1, 2, 3, 4, 5]
     assert median(data4) == 3
+
+
+def test_list_reverse():
+    data5 = [5, 4, 3, 2, 1]
+    assert median(data5) == 3
