@@ -64,4 +64,8 @@ def test_original_unchanged():
     assert data8 == [3, 2, 1, 9, 10]
 
 
-
+def test_if_function_works_for_tuples_and_lists():
+    data_list = [4, 5, 6, 1, 2]
+    data_tuple = (2, 4, 9, 5, 6)
+    assert median(data_list) == 4
+    assert(data_tuple) == 5
