@@ -48,3 +48,8 @@ def test_list_reverse():
 def test_list_unordered():
     data6 = [6, 9, 11, 2, 4]
     assert median(data6) == 6
+
+
+def test_list_empty():
+    data7 = []
+    assert median(data7) == ValueError
