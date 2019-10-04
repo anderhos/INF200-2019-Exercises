@@ -22,7 +22,6 @@ def median(data):
         else 0.5 * (sdata[n//2 - 1] + sdata[n//2]))
 
 
-
 def test_single():
     data1 = [1]
     assert median(data1) == 1
@@ -68,4 +67,4 @@ def test_if_function_works_for_tuples_and_lists():
     data_list = [4, 5, 6, 1, 2]
     data_tuple = (2, 4, 9, 5, 6)
     assert median(data_list) == 4
-    assert(data_tuple) == 5
+    assert median(data_tuple) == 5
