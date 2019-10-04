@@ -19,7 +19,10 @@ def median(data):
     if n == 0:
         raise ValueError
     return (sdata[n//2] if n % 2 == 1
-        else 0.5 * (sdata[n//2 - 1] + sdata[n//2]))
+            else 0.5 * (sdata[n//2 - 1] + sdata[n//2]))
+
+
+# Testing if the function returns the correct value for a one-element list
 
 
 def test_single():
@@ -27,9 +30,15 @@ def test_single():
     assert median(data1) == 1
 
 
+# Testing if the function returns the correct value for a odd numbered list
+
+
 def test_list_odd():
     data2 = [1, 3, 5, 7, 9]
     assert median(data2) == 5
+
+
+# Testing if the function returns the correct value for an even numbered list
 
 
 def test_list_even():
@@ -37,9 +46,21 @@ def test_list_even():
     assert median(data3) == 6
 
 
+"""
+Testing if the function returns the correct value for an ordered numbered 
+list
+"""
+
+
 def test_list_ordered():
     data4 = [1, 2, 3, 4, 5]
     assert median(data4) == 3
+
+
+"""
+Testing if the function returns the correct value for a reversed 
+list
+"""
 
 
 def test_list_reverse():
@@ -47,9 +68,18 @@ def test_list_reverse():
     assert median(data5) == 3
 
 
+"""
+Testing if the function returns the correct value for an unordered numbered 
+list
+"""
+
+
 def test_list_unordered():
     data6 = [6, 9, 11, 2, 4]
     assert median(data6) == 6
+
+
+# Testing the function for an empty list
 
 
 def test_list_empty():
@@ -57,10 +87,16 @@ def test_list_empty():
     assert median(data7) == 0
 
 
+# Testing if the function keeps the original list unchanged
+
+
 def test_original_unchanged():
     data8 = [3, 2, 1, 9, 10]
     median(data8)
     assert data8 == [3, 2, 1, 9, 10]
+
+
+# Testing if the function returns the correct value for both lists and tuples
 
 
 def test_if_function_works_for_tuples_and_lists():

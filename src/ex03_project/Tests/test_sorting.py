@@ -5,6 +5,8 @@ __email__ = 'anderhos@nmbu.no'
 
 # INF200. Ex_03-Task A
 
+# Code bubble_sort function from EX02
+
 
 def bubble_sort(dataset):
     list_dataset = list(dataset)
