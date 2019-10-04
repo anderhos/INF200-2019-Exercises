@@ -43,3 +43,8 @@ def test_list_ordered():
 def test_list_reverse():
     data5 = [5, 4, 3, 2, 1]
     assert median(data5) == 3
+
+
+def test_list_unordered():
+    data6 = [6, 9, 11, 2, 4]
+    assert median(data6) == 6
