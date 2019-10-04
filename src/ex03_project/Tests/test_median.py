@@ -16,8 +16,11 @@ def median(data):
 
     sdata = sorted(data)
     n = len(sdata)
+    if n == 0:
+        raise ValueError
     return (sdata[n//2] if n % 2 == 1
         else 0.5 * (sdata[n//2 - 1] + sdata[n//2]))
+
 
 
 def test_single():
@@ -52,4 +55,4 @@ def test_list_unordered():
 
 def test_list_empty():
     data7 = []
-    assert median(data7) == []
+    assert median(data7) == 0
