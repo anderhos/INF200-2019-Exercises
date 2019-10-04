@@ -52,4 +52,4 @@ def test_list_unordered():
 
 def test_list_empty():
     data7 = []
-    assert median(data7) == ValueError
+    assert median(data7) == []
