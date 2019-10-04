@@ -33,3 +33,8 @@ def test_list_odd():
 def test_list_even():
     data3 = [2, 4, 6, 8, 10]
     assert median(data3) == 6
+
+
+def test_list_ordered():
+    data4 = [1, 2, 3, 4, 5]
+    assert median(data4) == 3
