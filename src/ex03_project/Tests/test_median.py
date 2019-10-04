@@ -28,3 +28,8 @@ def test_single():
 def test_list_odd():
     data2 = [1, 3, 5, 7, 9]
     assert median(data2) == 5
+
+
+def test_list_even():
+    data3 = [2, 4, 6, 8, 10]
+    assert median(data3) == 6
