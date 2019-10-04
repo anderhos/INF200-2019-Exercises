@@ -23,4 +23,8 @@ def median(data):
 def test_single():
     data1 = [1]
     assert median(data1) == 1
-    
+
+
+def test_list_odd():
+    data2 = [1, 3, 5, 7, 9]
+    assert median(data2) == 5
