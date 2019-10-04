@@ -56,3 +56,12 @@ def test_list_unordered():
 def test_list_empty():
     data7 = []
     assert median(data7) == 0
+
+
+def test_original_unchanged():
+    data8 = [3, 2, 1, 9, 10]
+    median(data8)
+    assert data8 == [3, 2, 1, 9, 10]
+
+
+
