@@ -1,17 +1,15 @@
-__author__ = 'Anders Mølmen Høst'
-__email__ = 'anderhos@nmbu.no'
+# -*- coding: utf-8 -*-
 
-# INF200 ex01
-# Task A
-# Create a card deck by list comprehension
+__author__ = "Yngve Mardal Moe"
+__email__ = "yngve.m.moe@gmail.com"
 
-# Creating suits and values for cards
+#from itertools import product
+
 
 SUITS = ('C', 'S', 'H', 'D')
 VALUES = range(1, 14)
 
 
-# Creating the card deck by using a for-loop
 def deck_loop():
     deck = []
     for suit in SUITS:
@@ -20,12 +18,12 @@ def deck_loop():
     return deck
 
 
-# Creating the card deck by list comprehension
 def deck_comp():
+    #return [(suit, value) for suit, value in product(SUITS, VALUES)]
+    # Alternatively
     return [(suit, value) for suit in SUITS for value in VALUES]
 
 
-# Checking if the two card decks are the same
 if __name__ == '__main__':
     if deck_loop() != deck_comp():
         print('ERROR!')
