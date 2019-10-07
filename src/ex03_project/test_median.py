@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import pytest
+
 
 __author__ = 'Anders Mølmen Høst'
 __email__ = 'anderhos@nmbu.no'
@@ -83,8 +85,9 @@ def test_list_unordered():
 
 
 def test_list_empty():
-    data7 = []
-    assert median(data7) == 0
+    with pytest.raises(ValueError) as err:
+        median([])
+    assert err.type is ValueError
 
 
 # Testing if the function keeps the original list unchanged
