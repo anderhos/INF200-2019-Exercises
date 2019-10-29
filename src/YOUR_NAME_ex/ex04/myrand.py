@@ -30,12 +30,27 @@ class ListRand:
         else:
             raise RuntimeError
 
+    def __len__(self):
+        return len(self.numbers_list)
+
 
 if __name__ == "__main__":
-    number1 = 4    # Defining a number for LCGRand
-    numbers_list = [1, 2, 3]    # Defining a list of numbers for ListRand
-    for numbers_list in ListRand
-        print(numbers_list.rand())    # Printing numbers, NOT WORKING
-    # How to proceed?
+    number_1 = LCGRand(1)    # Defining a number input into LCGRand
+    list_input = ListRand([4, 3, 6, 9, 24])    # Defining a list of numbers for
+    # ListRand
+    for index in range(5):
+        print(number_1.rand())
+
+    for index in range(len(list_input)):
+        print(list_input.rand())
+
+    try:
+        list_input.rand()
+    except RuntimeError:
+        print("Last number returned!")
+
+
+
+# How to proceed?
 
 # Checkout examples online
