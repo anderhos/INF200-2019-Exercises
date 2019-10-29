@@ -10,12 +10,12 @@ import random
 class Walker:
     steps_taken = 0
 
-    def __init__(self, current_position, h):
-        self.current_position = current_position
+    def __init__(self, x0, h):
+        self.current_position = x0
         self.h = h
 
     def move(self):
-        x = random.randint (0, 1)
+        x = random.randint(0, 1)
         if x == 0:
             self.current_position -= 1
         else:
@@ -27,10 +27,12 @@ class Walker:
             return True
 
     def get_position(self):
-        return self.current_position
+        x = self.current_position
+        return x
 
     def get_steps(self):
         return self.steps_taken
+
 
 if __name__ == "__main__":
     for j in (1, 2, 5, 10, 20, 50, 100):
@@ -41,5 +43,3 @@ if __name__ == "__main__":
                 walker.move()
             steps[i] = walker.get_steps()
         print("Distance: ", j, " --> Path length: ", steps)
-
-

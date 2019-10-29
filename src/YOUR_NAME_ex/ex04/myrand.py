@@ -43,14 +43,7 @@ if __name__ == "__main__":
 
     for index in range(len(list_input)):
         print(list_input.rand())
-
     try:
         list_input.rand()
     except RuntimeError:
-        print("Last number returned!")
-
-
-
-# How to proceed?
-
-# Checkout examples online
+        print("Last number has been delivered!")
