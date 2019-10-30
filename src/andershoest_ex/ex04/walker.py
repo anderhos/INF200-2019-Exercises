@@ -23,8 +23,8 @@ class Walker:
         self.steps_taken += 1
 
     def is_at_home(self):
-        if self.current_position == self.h:
-            return True
+        if self.current_position != self.h:
+            return False
 
     def get_position(self):
         x = self.current_position
