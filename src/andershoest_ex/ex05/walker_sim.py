@@ -94,11 +94,28 @@ class Simulation:
 
 
 if __name__ == "__main__":
-    # empty list, append
-    for j in ([0, 10, 12345], [0, 10, 12345], [10, 0, 12345], [10, 0, 12345],
-              [0, 10, 54321], [10, 0, 54321]):
-        steps = [0] * 20
-        for i in range(20):
-            simulation = Simulation(j)
-            print(simulation)
+
+     #empty list, append
+
+    # list_steps = [0] * 20
+    # list_simulations = [list_steps] * 6
+
+   # sim1 = Simulation(0, 10, 12345)
+   # sim2 = Simulation(0, 10, 12345)
+    # sim3 = Simulation(10, 0, 12345)
+    #sim4 = Simulation(10, 0, 12345)
+    #sim5 = Simulation(0, 10, 54321)
+    #sim6 = Simulation(10, 0, 54321)
+    #simulations = [sim1, sim2, sim3, sim4, sim5, sim6]
+
+    data = [[0, 10, 12345], [0, 10, 12345], [10, 0, 12345], [10, 0, 12345],
+        [0, 10, 54321], [10, 0, 54321]]
+
+    for a, b, c in data:
+        list_steps = [0] * 20
+        list_simulations = [list_steps] * 6
+        for i in range(6):
+            sim = Simulation(a, b, c)
+            list_steps[i] = sim.run_simulation(20)
+
 
