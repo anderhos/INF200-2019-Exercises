@@ -95,9 +95,10 @@ class Simulation:
 
 if __name__ == "__main__":
     # empty list, append
-
-    walks = 20
-    steps = [[] * walks] * 6
-
-    print(Simulation(0, 10, 12345))
+    for j in ([0, 10, 12345], [0, 10, 12345], [10, 0, 12345], [10, 0, 12345],
+              [0, 10, 54321], [10, 0, 54321]):
+        steps = [0] * 20
+        for i in range(20):
+            simulation = Simulation(j)
+            print(simulation)
 
