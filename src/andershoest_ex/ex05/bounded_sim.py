@@ -1,5 +1,10 @@
+# -*- coding: utf-8 -*-
 
 from walker_sim import Walker, Simulation
+
+__author__ = 'Anders Mølmen Høst'
+__email__ = 'anderhos@nmbu.no'
+
 
 class BoundedWalker(Walker):
 
@@ -21,6 +26,7 @@ class BoundedWalker(Walker):
         super().__init__(start, home)
         self.left_limit = left_limit
         self.right_limit = right_limit
+
 
 class BoundedSimulation(Simulation):
     def __init__(self, start, home, seed, left_limit, right_limit):
@@ -44,9 +50,14 @@ class BoundedSimulation(Simulation):
         BoundedWalker.right_limit = right_limit
         BoundedWalker.left_limit = left_limit
 
+
 if __name__ == "__main__":
-    num_walks = 20
-    sim1 =
+    left_boundaries = [0, -10, -100, -1000, -10000]
+    for i in left_boundaries:
+        bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, 20)
+        print("Left boundary:", i, "-->", "Walk durations:",
+              bounded_sim_1.run_simulation(20))
+
 
 
 
