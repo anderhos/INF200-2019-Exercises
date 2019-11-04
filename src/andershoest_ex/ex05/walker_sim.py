@@ -59,7 +59,7 @@ class Simulation:
         """
         self.current_position = start
         self.home = home
-        self.seed = seed
+        random.seed(seed)
 
     def single_walk(self):
         """
@@ -95,27 +95,31 @@ class Simulation:
 
 if __name__ == "__main__":
 
-     #empty list, append
+    sim_1 = Simulation(0, 10, 12345)
+    print("Steps taken by the walker from starting position 0 to home position"
+          " 10 over 20 walks with seed 12345", sim_1.run_simulation(20))
 
-    # list_steps = [0] * 20
-    # list_simulations = [list_steps] * 6
+    sim_2 = Simulation(0, 10, 12345)
+    print("Steps taken by the walker from starting position 0 to home position"
+          " 10 over 20 walks with seed 12345 as above",
+          sim_2.run_simulation(20))
 
-   # sim1 = Simulation(0, 10, 12345)
-   # sim2 = Simulation(0, 10, 12345)
-    # sim3 = Simulation(10, 0, 12345)
-    #sim4 = Simulation(10, 0, 12345)
-    #sim5 = Simulation(0, 10, 54321)
-    #sim6 = Simulation(10, 0, 54321)
-    #simulations = [sim1, sim2, sim3, sim4, sim5, sim6]
+    sim_3 = Simulation(10, 0, 12345)
+    print("Steps taken by the walker from starting position 10 to home "
+          "position 0 over 20 walks with seed 12345",
+          sim_3.run_simulation(20))
 
-    data = [[0, 10, 12345], [0, 10, 12345], [10, 0, 12345], [10, 0, 12345],
-        [0, 10, 54321], [10, 0, 54321]]
+    sim_4 = Simulation(10, 0, 12345)
+    print("Steps taken by the walker from starting position 10 to "
+          "home position 10 over 20 walks with seed 12345 as above",
+          sim_4.run_simulation(20))
 
-    for a, b, c in data:
-        list_steps = [0] * 20
-        list_simulations = [list_steps] * 6
-        for i in range(6):
-            sim = Simulation(a, b, c)
-            list_steps[i] = sim.run_simulation(20)
+    sim_5 = Simulation(0, 10, 54321)
+    print("Steps taken by the walker from starting position 0 to home position"
+          " 10 over 20 walks with seed 54321",
+          sim_5.run_simulation(20))
 
-
+    sim_6 = Simulation(10, 0, 54321)
+    print("Steps taken by the walker from starting position 10 to "
+          "home position 10 over 20 walks with seed 54321 as above",
+          sim_6.run_simulation(20))
