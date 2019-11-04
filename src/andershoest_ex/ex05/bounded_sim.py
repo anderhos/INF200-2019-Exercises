@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import random
 from walker_sim import Walker, Simulation
 
 __author__ = 'Anders Mølmen Høst'
@@ -27,6 +28,23 @@ class BoundedWalker(Walker):
         self.left_limit = left_limit
         self.right_limit = right_limit
 
+    def move(self):
+        """
+        Change coordinate by +1 or -1 with equal probability.
+        """
+        x = random.randint(0, 1)
+        if x == 0:
+            self.current_position -= 1
+        else:
+            self.current_position += 1
+        self.steps_taken += 1
+        if x == 1 and self.current_position == self.left_limit:
+            return self.current_position == self.current_position
+
+        
+
+
+
 
 class BoundedSimulation(Simulation):
     def __init__(self, start, home, seed, left_limit, right_limit):
@@ -47,10 +65,10 @@ class BoundedSimulation(Simulation):
             The right boundary  of walker movement
          """
         super().__init__(start, home, seed)
-        BoundedWalker.right_limit = right_limit
-        BoundedWalker.left_limit = left_limit
+        self.left_limit = left_limit
+        self.right_limit = right_limit
 
-    def single_walk(self):
+    def bounded_walk(self):
         """
         Simulate single walk from start to home, returning number of steps.
 
@@ -61,14 +79,10 @@ class BoundedSimulation(Simulation):
         """
 
         bounded_walker = BoundedWalker(self.current_position, self.home,
-
-        pass                               BoundedWalker.left_limit,)
-        if bounded
-        while not walker.is_at_home():
-            walker.move()
-        return walker.get_steps()
-        def run_bounded_simulation(self, num_walks):
-            return [self.single_walk() for _ in range(num_walks)]
+                                       self.left_limit, self.right_limit)
+        while not bounded_walker.is_at_home():
+            bounded_walker.move()
+        return bounded_walker.get_steps()
 
 if __name__ == "__main__":
     left_boundaries = [0, -10, -100, -1000, -10000]
