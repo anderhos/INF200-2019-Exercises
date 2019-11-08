@@ -83,7 +83,7 @@ if __name__ == "__main__":
     left_boundaries = [0, -200]
     right_boundary = 20
     for i in left_boundaries:
-        bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, right_boundary)
+        bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, 20)
         print("Left boundary:", i, "-->", "Walk durations:",
 <<<<<<< HEAD
               bounded_sim_1.run_simulation(5))
