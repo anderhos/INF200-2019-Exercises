@@ -16,11 +16,11 @@ class Walker:
         self.current_position = start
         self.home = home
         self.steps_taken = 0
+        self.direction = 0
 
     def get_position(self):
         """Returns current position."""
-        x = self.current_position
-        return x
+        return self.current_position
 
     def get_steps(self):
         """Returns number of steps taken by walker."""
@@ -34,10 +34,11 @@ class Walker:
         """
         Change coordinate by +1 or -1 with equal probability.
         """
-        x = random.randint(0, 1)
-        if x == 0:
+        self.direction = random.randint(0, 1)
+
+        if self.direction == 0:
             self.current_position -= 1
-        else:
+        elif self.direction == 1:
             self.current_position += 1
         self.steps_taken += 1
 
@@ -72,6 +73,7 @@ class Simulation:
         """
         walker = Walker(self.current_position, self.home)
         while not walker.is_at_home():
+            walker.direction = random.randint(0, 1)
             walker.move()
         return walker.get_steps()
 
@@ -94,7 +96,6 @@ class Simulation:
 
 
 if __name__ == "__main__":
-
     sim_1 = Simulation(0, 10, 12345)
     print("Steps taken by the walker from starting position 0 to home position"
           " 10 over 20 walks with seed 12345", sim_1.run_simulation(20))
