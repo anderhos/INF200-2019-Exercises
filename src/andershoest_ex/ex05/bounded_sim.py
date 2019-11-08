@@ -52,7 +52,7 @@ class BoundedSimulation(Simulation):
         self.left_limit = left_limit
         self.right_limit = right_limit
 
-<<<<<<< HEAD
+
     def single_walk(self):
         """
         Simulate single walk from start to home, returning number of steps.
@@ -76,8 +76,6 @@ class BoundedSimulation(Simulation):
             else:
                 bounded_walker.move()
         return bounded_walker.get_steps()
-=======
->>>>>>> parent of e65b8fb... Making ready for delivery. Did not manage all ex
 
 if __name__ == "__main__":
     left_boundaries = [0, -200]
@@ -85,12 +83,9 @@ if __name__ == "__main__":
     for i in left_boundaries:
         bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, 20)
         print("Left boundary:", i, "-->", "Walk durations:",
-<<<<<<< HEAD
               bounded_sim_1.run_simulation(5))
-=======
               bounded_sim_1.run_simulation(20))
 
 
->>>>>>> parent of e65b8fb... Making ready for delivery. Did not manage all ex
 
 
