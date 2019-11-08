@@ -28,6 +28,12 @@ class BoundedWalker(Walker):
         self.left_limit = left_limit
         self.right_limit = right_limit
 
+    def move(self):
+        super().move()
+        if self.get_position() < self.left_limit:
+            self.current_position = self.left_limit
+        elif self.get_position() > self.right_limit:
+            self.current_position = self.right_limit
 
 class BoundedSimulation(Simulation):
     def __init__(self, start, home, seed, left_limit, right_limit):
@@ -48,42 +54,25 @@ class BoundedSimulation(Simulation):
             The right boundary  of walker movement
          """
         super().__init__(start, home, seed)
-        self.start = start
         self.left_limit = left_limit
         self.right_limit = right_limit
 
 
     def single_walk(self):
-        """
-        Simulate single walk from start to home, returning number of steps.
-
-        Returns
-        -------
-        int
-            The number of steps taken
-        """
-
         bounded_walker = BoundedWalker(self.current_position, self.home,
                                        self.left_limit, self.right_limit)
         while not bounded_walker.is_at_home():
-            bounded_walker.direction = random.randint(0, 1)
-            if bounded_walker.direction == 0 and \
-                    bounded_walker.current_position == left_boundaries:
-                continue
-            elif bounded_walker.direction == 1 and \
-                    bounded_walker.current_position == right_boundary:
-                continue
-            else:
-                bounded_walker.move()
+            bounded_walker.move()
         return bounded_walker.get_steps()
 
+
 if __name__ == "__main__":
-    left_boundaries = [0, -200]
+    left_boundaries = [0, -10, -100, -1000, -10000]
     right_boundary = 20
-    for i in left_boundaries:
-        bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, 20)
-        print("Left boundary:", i, "-->", "Walk durations:",
-              bounded_sim_1.run_simulation(5))
+    for left_boundary in left_boundaries:
+        bounded_sim_1 = BoundedSimulation(0, 20, 12345, left_boundary,
+                                          right_boundary)
+        print("Left boundary:", left_boundary, "-->", "Walk durations:",
               bounded_sim_1.run_simulation(20))
 
 
