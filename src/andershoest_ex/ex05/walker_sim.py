@@ -60,7 +60,7 @@ class Simulation:
         """
         self.current_position = start
         self.home = home
-        random.seed(seed)
+        self.seed = seed
 
     def single_walk(self):
         """
@@ -96,6 +96,7 @@ class Simulation:
 
 
 if __name__ == "__main__":
+<<<<<<< HEAD
     sim_1 = Simulation(0, 10, 12345)
     print("Steps taken by the walker from starting position 0 to home position"
           " 10 over 20 walks with seed 12345", sim_1.run_simulation(20))
@@ -124,3 +125,30 @@ if __name__ == "__main__":
     print("Steps taken by the walker from starting position 10 to "
           "home position 10 over 20 walks with seed 54321 as above",
           sim_6.run_simulation(20))
+=======
+
+     #empty list, append
+
+    # list_steps = [0] * 20
+    # list_simulations = [list_steps] * 6
+
+   # sim1 = Simulation(0, 10, 12345)
+   # sim2 = Simulation(0, 10, 12345)
+    # sim3 = Simulation(10, 0, 12345)
+    #sim4 = Simulation(10, 0, 12345)
+    #sim5 = Simulation(0, 10, 54321)
+    #sim6 = Simulation(10, 0, 54321)
+    #simulations = [sim1, sim2, sim3, sim4, sim5, sim6]
+
+    data = [[0, 10, 12345], [0, 10, 12345], [10, 0, 12345], [10, 0, 12345],
+        [0, 10, 54321], [10, 0, 54321]]
+
+    for a, b, c in data:
+        list_steps = [0] * 20
+        list_simulations = [list_steps] * 6
+        for i in range(6):
+            sim = Simulation(a, b, c)
+            list_steps[i] = sim.run_simulation(20)
+
+
+>>>>>>> parent of e65b8fb... Making ready for delivery. Did not manage all ex
