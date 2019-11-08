@@ -34,17 +34,19 @@ class BoundedWalker(Walker):
         """
         x = random.randint(0, 1)
         if x == 0:
-            self.current_position -= 1
+                self.current_position -= 1
+            except:
+                if self.left_limit == self.current_position
+                    return self.current_position == self.current_position
+
+
         else:
             self.current_position += 1
         self.steps_taken += 1
-        if x == 1 and self.current_position == self.left_limit:
-            return self.current_position == self.current_position
-
-        
-
-
-
+        if self.current_position == self.left_limit - 1
+            raise ValueError("Walker out of range")
+        if self.current_position == self.right_limit + 1
+            raise ValueError("Walker out of range")
 
 class BoundedSimulation(Simulation):
     def __init__(self, start, home, seed, left_limit, right_limit):
@@ -68,7 +70,7 @@ class BoundedSimulation(Simulation):
         self.left_limit = left_limit
         self.right_limit = right_limit
 
-    def bounded_walk(self):
+    def single_walk(self):
         """
         Simulate single walk from start to home, returning number of steps.
 
@@ -85,8 +87,9 @@ class BoundedSimulation(Simulation):
         return bounded_walker.get_steps()
 
 if __name__ == "__main__":
-    left_boundaries = [0, -10, -100, -1000, -10000]
+    left_boundaries = [0, -10]
+    right_boundary = 20
     for i in left_boundaries:
-        bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, 20)
+        bounded_sim_1 = BoundedSimulation(0, 20, 12345, i, right_boundary)
         print("Left boundary:", i, "-->", "Walk durations:",
-              bounded_sim_1.run_bounded_simulation(20))
+              bounded_sim_1.run_simulation(5))
