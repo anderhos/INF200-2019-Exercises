@@ -34,6 +34,7 @@ class BoundedWalker(Walker):
         elif self.get_position() > self.right_limit:
             self.current_position = self.right_limit
 
+
 class BoundedSimulation(Simulation):
     def __init__(self, start, home, seed, left_limit, right_limit):
         """
