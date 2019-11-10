@@ -50,6 +50,7 @@ class RandIter:
         length : int
             The number of random numbers to generate
         """
+
         self.generator = random_number_generator
         self.length = length
         self.num_generated_numbers = None
@@ -89,8 +90,8 @@ class RandIter:
             If ``self.length`` random numbers are generated.
         """
         if self.num_generated_numbers is None:
-            raise RuntimeError("The next method cannot be called before"
-                               "iterator is initialized")
+            raise RuntimeError("The next method cannot be called before \
+                               iterator is initialized")
         if self.num_generated_numbers == self.length:
             raise StopIteration("All random numbers are generated!")
         return self
