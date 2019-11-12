@@ -5,6 +5,7 @@ __email__ = 'anderhos@nmbu.no'
 
 
 class Board:
+
     """
     Initializes the board.
 
@@ -15,7 +16,7 @@ class Board:
     Arguments
     ---------
     param start : int 0
-        The first position on the boar.
+        The first position on the board.
     param goal : int 90
         the last position on the board.
 
@@ -23,10 +24,12 @@ class Board:
 
     def __init__(self, start, goal):
         self.current_position = start
-        self.goal = 90
+        self.winning_score = goal
+        self.ladders = ladder_dict
+        self.snakes = snake_dict
 
     def goal_reached(self):
-        if self.current_position >= self.goal:
+        if self.current_position >= self.winning_score:
             return True
 
     def position_adjustment(self):
@@ -38,7 +41,10 @@ class Board:
         """
         pass
 
-if __name__ == "__main__":
-    ladders = [(1, 4), (5, 16)]
-    snakes = [(9, 2), (12, 3)]    # Ladders and snakes here?
 
+if __name__ == "__main__":
+    #ladders = [(1, 4), (5, 16)]
+    #snakes = [(9, 2), (12, 3)]    # Ladders and snakes here?
+    ladder_dict = {1: 40, 8: 10, 36: 52, 43: 62, 49: 79, 65: 82, 68: 85}
+    snake_dict = {24: 5, 33: 3, 42: 30, 56: 37, 64: 27, 74: 12, 87: 70}
+    winning_score = 90
