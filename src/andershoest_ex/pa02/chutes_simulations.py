@@ -3,6 +3,7 @@
 __author__ = 'Anders Mølmen Høst'
 __email__ = 'anderhos@nmbu.no'
 
+import random
 
 class Board:
     ladder_dict = {1: 40, 8: 10, 36: 52, 43: 62, 49: 79, 65: 82, 68: 85}
@@ -46,6 +47,12 @@ class Board:
         elif position in self.snakes:
             return self.snakes[position] - position
         return changed_position
+
+
+class Player(Board):    # correct?
+
+    def move(self, throw_die):
+        throw_die = random.randint(1, 6)
 
 
 if __name__ == "__main__":
