@@ -9,7 +9,7 @@ __email__ = 'hans.ekkehard.plesser@nmbu.no'
 
 import pytest
 
-import snakes_simulations as snake
+import chutes_simulations as snake
 
 
 class TestBoard:
