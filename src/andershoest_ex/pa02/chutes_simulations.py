@@ -55,9 +55,11 @@ class Player:    # AH: correct? or should it be Player(board)?
         self.board = Board(Player)
         self.player = Player
 
-    def move(self, throw_die):
-        throw_die = random.randint(1, 6)
-        return throw_die
+    def move(self):
+        Player.throw_die = random.randint(1, 6)
+
+
+
 
 
 if __name__ == "__main__":
