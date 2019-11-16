@@ -59,6 +59,21 @@ class Player:    # AH: correct? or should it be Player(board)?
         Player.throw_die = random.randint(1, 6)
 
 
+class ResilientPlayer(Player):
+
+    def __init__(self, board, extra_steps):
+        super().__init__(board)
+        self.extra_steps = extra_steps
+
+    def move(self):
+        ResilientPlayer.throw_die = random.randint(1, 6)
+        while Board.current_position == snakes:
+            return self.extra_steps
+        #while Board.position_adjustment(position=snakes):
+            #return self.extra_steps
+
+
+
 
 
 
