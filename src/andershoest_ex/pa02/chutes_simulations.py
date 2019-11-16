@@ -30,7 +30,7 @@ class Board:
         self.snakes = snakes or Board.snake_dict
         self.goal = goal
 
-    def goal_reached(self, position):
+    def goal_reached(self, position):    # AH question: Method may be static?
         while not position >= 90:
             return False
 
@@ -49,10 +49,15 @@ class Board:
         return changed_position
 
 
-class Player(Board):    # correct?
+class Player:    # AH: correct? or should it be Player(board)?
+
+    def __init__(self, board):
+        self.board = Board(Player)
+        self.player = Player
 
     def move(self, throw_die):
         throw_die = random.randint(1, 6)
+        return throw_die
 
 
 if __name__ == "__main__":
