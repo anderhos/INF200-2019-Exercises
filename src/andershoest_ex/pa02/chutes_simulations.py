@@ -78,15 +78,13 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
 
 class ResilientPlayer(Player):
 
-    def __init__(self, board, extra_steps):
+    def __init__(self, board, extra_steps=1):
         super().__init__(board)
         self.extra_steps = extra_steps
 
-    def move(self):
+    def move(self):    # AH note. Swich move with extra_steps?
         if Board.current_position in Board.snake_dict:
             return self.extra_steps
-            # pytest: TypeError: __init__() missing 1 required
-            # positional argument: 'extra_steps'
 
 if __name__ == "__main__":
     ladders = [(2, 7), (9, 25)]
