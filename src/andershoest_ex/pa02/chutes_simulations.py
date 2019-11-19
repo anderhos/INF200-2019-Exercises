@@ -40,6 +40,7 @@ class Board:
         :return: bol
         """
         self.current_position = position
+        # AH note. Skip previous line and use "position" instead?
         while not self.current_position >= 90:
             return False
 
@@ -60,7 +61,7 @@ class Board:
         return changed_position
 
 
-class Player:    # AH: correct? or should it be Player(board)?
+class Player:    # AH: correct? or should it be Player(board)? Test OK
 
     def __init__(self, board):
         """
@@ -82,16 +83,10 @@ class ResilientPlayer(Player):
         self.extra_steps = extra_steps
 
     def move(self):
-        ResilientPlayer.throw_die = random.randint(1, 6)
-        while Board.current_position == snakes:
+        if Board.current_position in Board.snake_dict:
             return self.extra_steps
-        #while Board.position_adjustment(position=snakes):
-            #return self.extra_steps
-
-
-
-
-
+            # pytest: TypeError: __init__() missing 1 required
+            # positional argument: 'extra_steps'
 
 if __name__ == "__main__":
     ladders = [(2, 7), (9, 25)]
