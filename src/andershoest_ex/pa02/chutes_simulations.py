@@ -79,10 +79,18 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
 class ResilientPlayer(Player):
 
     def __init__(self, board, extra_steps=1):
+        """
+        Initializes ResilientPlayer as Subclass of Player.
+
+        :param: board, extra_steps
+        """
         super().__init__(board)
         self.extra_steps = extra_steps
 
     def move(self):    # AH note. Swich move with extra_steps?
+        """
+         return the extra steps taken after moving down a chute
+        """
         if Board.current_position in Board.snake_dict:
             return self.extra_steps
 
@@ -90,16 +98,27 @@ class ResilientPlayer(Player):
 class LazyPlayer(Player):
 
     def __init__(self, board, dropped_steps=1):
+        """
+       Initializes ResilientPlayer as Subclass of Player.
+
+       :param: board, dropped_steps
+       """
         super().__init__(board)
         self.dropped_steps = dropped_steps
 
     def move(self):
+        """
+        Return dropped steps after moving up a ladder
+        dropped steps cannot be less than the dice throw
+        :return: dropped_steps
+        """
         Player.throw_die = random.randint(1, 6)
         if Board.current_position in Board.ladder_dict:
             while not Player.throw_die < self.dropped_steps:
                 return self.dropped_steps
         else:
             return Board.current_position == Board.current_position
+
 
 
 
