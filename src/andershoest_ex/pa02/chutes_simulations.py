@@ -120,9 +120,19 @@ class LazyPlayer(Player):
             return Board.current_position == Board.current_position
 
 
+class Simulation:
 
+    def __init__(self, board):
+        """
+        Initialize the Simulation class to manage simulations of the game
 
+        :param: board, random_seed, boolean_flag, list_of_player_classes,
+        list_of_player_objects ??
 
+        AH. note. Test OK
+
+        """
+        self.board = board
 
 
 
