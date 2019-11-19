@@ -86,6 +86,27 @@ class ResilientPlayer(Player):
         if Board.current_position in Board.snake_dict:
             return self.extra_steps
 
+
+class LazyPlayer(Player):
+
+    def __init__(self, board, dropped_steps=1):
+        super().__init__(board)
+        self.dropped_steps = dropped_steps
+
+    def move(self):
+        Player.throw_die = random.randint(1, 6)
+        if Board.current_position in Board.ladder_dict:
+            while not Player.throw_die < self.dropped_steps:
+                return self.dropped_steps
+        else:
+            return Board.current_position == Board.current_position
+
+
+
+
+
+
+
 if __name__ == "__main__":
     ladders = [(2, 7), (9, 25)]
     snakes = [(9, 2), (12, 3)]    # Ladders and snakes here?
