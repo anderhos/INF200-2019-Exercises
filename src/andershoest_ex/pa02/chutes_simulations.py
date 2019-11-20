@@ -69,11 +69,19 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
 
         :param board
         """
-        self.board = Board(Player)
-        self.player = Player
+        self.board = board
+        self.position = 0
 
     def move(self):
-        Player.throw_die = random.randint(1, 6)
+        throw_die = random.randint(1, 6)
+        # number between 1 and 6
+        new_temporary_pos = self.position + throw_die
+        # move player to new position
+        adjustment = self.board.position_adjustment(new_temporary_pos)
+        # look for ladders or snakes
+        self.position = new_temporary_pos + adjustment
+        # changes position if adjustment is not 0.
+
 
 
 class ResilientPlayer(Player):
@@ -136,7 +144,7 @@ class Simulation:
         """
         self.board = board or Board()
         self.seed = seed
-        self.randomize_payers = randomize_players
+        self.randomize_players = randomize_players
         self.player_field = player_field
 
     def single_game(self):
@@ -177,10 +185,12 @@ class Simulation:
 
 
 if __name__ == "__main__":
-    ladders = [(2, 7), (9, 25)]
-    snakes = [(9, 2), (12, 3)]    # Ladders and snakes here?
+    board = Board()
+    player = Player(board)
+    player.move()
+    print(player.position)
 
-# ladders position start position. End position
+
 
 # Notes AH. Dont need a main
 # Write own tests at least one for each method
