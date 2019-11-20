@@ -9,7 +9,7 @@ __email__ = 'hans.ekkehard.plesser@nmbu.no'
 
 import pytest
 
-import chutes_simulations as snake
+import chutes_simulations as cs
 
 
 class TestBoard:
@@ -19,27 +19,27 @@ class TestBoard:
 
     def test_constructor_default(self):
         """Default constructor callable."""
-        b = snake.Board()
-        assert isinstance(b, snake.Board)
+        b = cs.Board()
+        assert isinstance(b, cs.Board)
 
     def test_constructor_args(self):
         """Constructor with unnamed arguments callable."""
-        b = snake.Board([(1, 4), (5, 16)], [(9, 2), (12, 3)], 90)
-        assert isinstance(b, snake.Board)
+        b = cs.Board([(1, 4), (5, 16)], [(9, 2), (12, 3)], 90)
+        assert isinstance(b, cs.Board)
 
     def test_constructor_named_args(self):
         """Constructor with kw args callable."""
-        b = snake.Board(ladders=[(1, 4), (5, 16)], snakes=[(9, 2), (12, 3)], goal=90)
-        assert isinstance(b, snake.Board)
+        b = cs.Board(ladders=[(1, 4), (5, 16)], snakes=[(9, 2), (12, 3)], goal=90)
+        assert isinstance(b, cs.Board)
 
     def test_goal_reached(self):
         """goal_reached() callable and returns bool"""
-        b = snake.Board()
+        b = cs.Board()
         assert isinstance(b.goal_reached(1), bool)
 
     def test_position_adjustment(self):
         """position_adjustment callable and returns number"""
-        b = snake.Board()
+        b = cs.Board()
         assert isinstance(b.position_adjustment(1), (int, float))
 
 
@@ -50,44 +50,44 @@ class TestPlayer:
 
     def test_constructor(self):
         """Player can be constructed."""
-        b = snake.Board()
-        p = snake.Player(b)
-        assert isinstance(p, snake.Player)
+        b = cs.Board()
+        p = cs.Player(b)
+        assert isinstance(p, cs.Player)
 
     def test_move(self):
         """Player has move() method."""
-        b = snake.Board()
-        p = snake.Player(b)
+        b = cs.Board()
+        p = cs.Player(b)
         p.move()
 
 
 class TestResilientPlayer:
     def test_constructor(self):
         """ResilientPlayer can be created."""
-        b = snake.Board()
-        p = snake.ResilientPlayer(b, extra_steps=4)
-        assert isinstance(p, snake.ResilientPlayer)
-        assert isinstance(p, snake.Player)
+        b = cs.Board()
+        p = cs.ResilientPlayer(b, extra_steps=4)
+        assert isinstance(p, cs.ResilientPlayer)
+        assert isinstance(p, cs.Player)
 
     def test_move(self):
         """ResilientPlayer can move."""
-        b = snake.Board()
-        p = snake.ResilientPlayer(b)
+        b = cs.Board()
+        p = cs.ResilientPlayer(b)
         p.move()
 
 
 class TestLazyPlayer:
     def test_constructor(self):
         """LazyPlayer can be constructed."""
-        b = snake.Board()
-        p = snake.LazyPlayer(b, dropped_steps=3)
-        assert isinstance(p, snake.LazyPlayer)
-        assert isinstance(p, snake.Player)
+        b = cs.Board()
+        p = cs.LazyPlayer(b, dropped_steps=3)
+        assert isinstance(p, cs.LazyPlayer)
+        assert isinstance(p, cs.Player)
 
     def test_move(self):
         """LazyPlayer can move."""
-        b = snake.Board()
-        p = snake.LazyPlayer(b)
+        b = cs.Board()
+        p = cs.LazyPlayer(b)
         p.move()
 
 
@@ -96,26 +96,26 @@ class TestSimulation:
 
     def test_constructor_default(self):
         """Default constructor works."""
-        s = snake.Simulation([snake.Player, snake.Player])
-        assert isinstance(s, snake.Simulation)
+        s = cs.Simulation([cs.Player, cs.Player])
+        assert isinstance(s, cs.Simulation)
 
     def test_constructor_named(self):
         """Constructor with kw args works."""
-        b = snake.Board()
-        s = snake.Simulation(player_field=[snake.Player, snake.Player],
-                             board=b, seed=123, randomize_players=True)
-        assert isinstance(s, snake.Simulation)
+        b = cs.Board()
+        s = cs.Simulation(player_field=[cs.Player, cs.Player],
+                          board=b, seed=123, randomize_players=True)
+        assert isinstance(s, cs.Simulation)
 
     def test_single_game(self):
         """single_game() returns non-negative number and class name"""
-        s = snake.Simulation([snake.Player, snake.Player])
+        s = cs.Simulation([cs.Player, cs.Player])
         nos, wc = s.single_game()
         assert nos > 0
         assert wc == 'Player'
 
     def test_run_simulation(self):
         """run_simulation() can be called"""
-        s = snake.Simulation([snake.Player, snake.Player])
+        s = cs.Simulation([cs.Player, cs.Player])
         s.run_simulation(2)
 
     def test_simulation_results(self):
@@ -123,7 +123,7 @@ class TestSimulation:
         - Multiple calls to run_simulation() aggregate results
         - get_results() returns list of result tuples
         """
-        s = snake.Simulation([snake.Player, snake.Player])
+        s = cs.Simulation([cs.Player, cs.Player])
         s.run_simulation(2)
         r = s.get_results()
         assert len(r) == 2
@@ -134,7 +134,7 @@ class TestSimulation:
 
     def test_players_per_type(self):
         """player_per_type() returns dict mapping names to non-neg numbers."""
-        s = snake.Simulation([snake.Player, snake.LazyPlayer, snake.ResilientPlayer])
+        s = cs.Simulation([cs.Player, cs.LazyPlayer, cs.ResilientPlayer])
         p = s.players_per_type()
         assert all(k in ['Player', 'LazyPlayer', 'ResilientPlayer']
                    for k in p.keys())
@@ -142,7 +142,7 @@ class TestSimulation:
 
     def test_winners_per_type(self):
         """winners_per_type() returns dict mapping names to non-neg numbers."""
-        s = snake.Simulation([snake.Player, snake.LazyPlayer, snake.ResilientPlayer])
+        s = cs.Simulation([cs.Player, cs.LazyPlayer, cs.ResilientPlayer])
         s.run_simulation(10)
         w = s.winners_per_type()
         assert all(k in ['Player', 'LazyPlayer', 'ResilientPlayer']
@@ -154,7 +154,7 @@ class TestSimulation:
         durations_per_type() returns dict mapping names to list of
         non-neg numbers.
         """
-        s = snake.Simulation([snake.Player, snake.LazyPlayer, snake.ResilientPlayer])
+        s = cs.Simulation([cs.Player, cs.LazyPlayer, cs.ResilientPlayer])
         s.run_simulation(10)
         w = s.durations_per_type()
         assert all(k in ['Player', 'LazyPlayer', 'ResilientPlayer']

@@ -144,14 +144,17 @@ class Simulation:
         Runs a single game, returning a tuple consisting the number of moves
         used to win the game and the type of the winner.
 
-        code from pa01
+        Using code from pa01
 
         :param:
 
+        Making a list of player instances for the different player types.
+
         """
-        player_field = []
-        num_players = 2
-        position_list = [0 for _ in range(num_players)]
+        player_list = [player_class(self.board)
+                       for player_class in self.player_field]
+
+# Loop
 
 
     def run_simulation(self):
@@ -178,3 +181,6 @@ if __name__ == "__main__":
     snakes = [(9, 2), (12, 3)]    # Ladders and snakes here?
 
 # ladders position start position. End position
+
+# Notes AH. Dont need a main
+# Write own tests at least one for each method
