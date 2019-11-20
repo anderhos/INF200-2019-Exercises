@@ -122,17 +122,23 @@ class LazyPlayer(Player):
 
 class Simulation:
 
-    def __init__(self, board):
+    def __init__(self, board,  seed=1234, randomize_players=True,
+                 player_field=0):
         """
         Initialize the Simulation class to manage simulations of the game
 
-        :param: board, random_seed, boolean_flag, list_of_player_classes,
-        list_of_player_objects ??
-
-        AH. note. Test OK
+        :param: board,
+        :param: seed,
+        :param: randomize_players,
+        :param: player_field
+        AH. note. Two first tests OK
 
         """
         self.board = board
+        self.seed = seed
+        self.randomize_payers = randomize_players
+        self.player_field = player_field
+
 
 
 
