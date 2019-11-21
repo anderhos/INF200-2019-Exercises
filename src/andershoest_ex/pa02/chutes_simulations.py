@@ -10,7 +10,6 @@ class Board:
     # Ladder dictionary and snake dictionary from pa01
     ladder_dict = {1: 40, 8: 10, 36: 52, 43: 62, 49: 79, 65: 82, 68: 85}
     snake_dict = {24: 5, 33: 3, 42: 30, 56: 37, 64: 27, 74: 12, 87: 70}
-    current_position = 0    # setting the starting position to zero
 
     def __init__(self, ladders=None, snakes=None, goal=90):
         """
@@ -39,7 +38,7 @@ class Board:
         :param position:
         :return: bo
         """
-        return self.current_position >= self.goal
+        return position >= self.goal
 
         # AH note. Skip previous line and use "position" instead?
 
@@ -71,17 +70,26 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
         """
         self.board = board
         self.position = 0
+        self.no_moves = 0    # Added number of moves
+        self.adjustment = 0
 
     def move(self):
+        if self.board.goal_reached(self.position):
+            return
         throw_die = random.randint(1, 6)
         # number between 1 and 6
         new_temporary_pos = self.position + throw_die
         # move player to new position
-        adjustment = self.board.position_adjustment(new_temporary_pos)
+        self.adjustment = self.board.position_adjustment(new_temporary_pos)
         # look for ladders or snakes
-        self.position = new_temporary_pos + adjustment
+        self.position = new_temporary_pos + self.adjustment
         # changes position if adjustment is not 0.
+        self.no_moves += 1    # Incrasing the number of moves
 
+
+    def check_goal_reached(self):    # Added method check goal reached
+        if self.board.goal_reached(self.position):
+            return True
 
 
 class ResilientPlayer(Player):
@@ -99,8 +107,9 @@ class ResilientPlayer(Player):
         """
          return the extra steps taken after moving down a chute
         """
-        if Board.current_position in Board.snake_dict:
-            return self.extra_steps
+        if self.adjustment < 0:
+            self.position += self.extra_steps
+        super().move()
 
 
 class LazyPlayer(Player):
@@ -120,13 +129,35 @@ class LazyPlayer(Player):
         dropped steps cannot be less than the dice throw
         :return: dropped_steps
         """
+        if self.adjustment > 0:
+            old_position = self.position
+
+            self.position = old_position - self.dropped_steps
+            super().move()
+            die = self.position - old_position + self.dropped_steps\
+                  - self.adjustment
+            if die < self.dropped_steps:
+                self.position = old_position
+        else:
+            super().move()
+
+
+
+        """
+        if self.adjustment > 0:
+            if self.position - self.dropped_steps >
+                self.position -= self.dropped_steps
+        super().move()
+        """
+
+        """
         Player.throw_die = random.randint(1, 6)
         if Board.current_position in Board.ladder_dict:
             while not Player.throw_die < self.dropped_steps:
                 return self.dropped_steps
         else:
             return Board.current_position == Board.current_position
-
+        """
 
 class Simulation:
 
@@ -159,8 +190,12 @@ class Simulation:
         Making a list of player instances for the different player types.
 
         """
+
         player_list = [player_class(self.board)
                        for player_class in self.player_field]
+
+        position_list = [0 for _ in player_list]
+        moves_list = [0 for _ in player_list]
 
 # Loop
 
@@ -186,9 +221,10 @@ class Simulation:
 
 if __name__ == "__main__":
     board = Board()
-    player = Player(board)
-    player.move()
-    print(player.position)
+    resilient_player = ResilientPlayer(board)
+    for _ in range(40):
+        resilient_player.move()
+        print(resilient_player.position)
 
 
 
