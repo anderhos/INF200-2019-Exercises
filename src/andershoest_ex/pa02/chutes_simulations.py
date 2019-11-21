@@ -204,6 +204,30 @@ class Simulation:
 
         player_list = [player_class(self.board)
                        for player_class in self.player_field]
+        # Making a list of players of different classes in a single game
+
+        no_players = len(player_list)
+        position_list = [0 for _ in range(no_players)]
+        moves_list = [0 for _ in range(no_players)]
+
+        result_game = None    # Tuple of class of the winner and moves made
+
+        finished = False
+        no_moves = 0
+        while not finished:
+            for player_class in player_list:
+                player_class.move()
+                no_moves += 1
+                if player_class.position < 90:
+                    finished = False
+                else:
+                    finished = True
+        return result_game    # draft. Test fails!
+
+
+
+
+
 
         position_list = [0 for _ in player_list]
         moves_list = [0 for _ in player_list]
@@ -236,7 +260,6 @@ if __name__ == "__main__":
     for _ in range(40):
         resilient_player.move()
         print(resilient_player.position)
-
 
 
 # Notes AH. Dont need a main
