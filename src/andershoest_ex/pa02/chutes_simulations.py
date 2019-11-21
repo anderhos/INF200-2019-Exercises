@@ -130,16 +130,27 @@ class LazyPlayer(Player):
         :return: dropped_steps
         """
         if self.adjustment > 0:
+            # The player moves up a ladder
             old_position = self.position
+            # In the next move, player on top of ladder
 
             self.position = old_position - self.dropped_steps
+            # player drops steps
             super().move()
+            # player move
             die = self.position - old_position + self.dropped_steps\
                   - self.adjustment
+            """ 
+            the current position of the player is: old position - 
+            dropped_steps + die + adjustment. Rearranging to find the die.
+            
+            """
             if die < self.dropped_steps:
                 self.position = old_position
+            # if die is less than dropped_steps, the player will stand still.
         else:
             super().move()
+            # if not climbling a ladder, then the player make a regular move
 
 
 
