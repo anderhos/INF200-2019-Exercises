@@ -42,7 +42,6 @@ class Board:
 
         # AH note. Skip previous line and use "position" instead?
 
-
     def position_adjustment(self, position):
         """
         The method takes as argument the position of the player
@@ -86,7 +85,6 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
         self.position = new_temporary_pos + self.adjustment
         # changes position if adjustment is not 0.
         self.no_moves += 1    # Incrasing the number of moves
-
 
     def check_goal_reached(self):    # Added method check goal reached
         if self.board.goal_reached(self.position):
@@ -140,8 +138,8 @@ class LazyPlayer(Player):
             # player drops steps
             super().move()
             # player move
-            die = self.position - old_position + self.dropped_steps\
-                  - self.adjustment
+            die = self.position - old_position + self.dropped_steps - \
+                self.adjustment
             """ 
             the current position of the player is: old position - 
             dropped_steps + die + adjustment. Rearranging to find the die.
@@ -154,23 +152,6 @@ class LazyPlayer(Player):
             super().move()
             # if not climbling a ladder, then the player make a regular move
 
-
-
-        """
-        if self.adjustment > 0:
-            if self.position - self.dropped_steps >
-                self.position -= self.dropped_steps
-        super().move()
-        """
-
-        """
-        Player.throw_die = random.randint(1, 6)
-        if Board.current_position in Board.ladder_dict:
-            while not Player.throw_die < self.dropped_steps:
-                return self.dropped_steps
-        else:
-            return Board.current_position == Board.current_position
-        """
 
 class Simulation:
 
@@ -220,8 +201,7 @@ class Simulation:
                     #  and the name of that type.
                     return player.no_moves, type(player).__name__
 
-
-    def run_simulation(self, num_games = 10):
+    def run_simulation(self, num_games=10):
         """
         run a given number of games and stores the results in the Simulation
         object.
@@ -239,11 +219,12 @@ class Simulation:
         """
         return self.result
 
-#Notes AH. Dont need a main
-# Write own tests at least one for each method
+    def durations_per_type(self):
+        pass
 
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
-    for _ in range(10):
-        print(sim.single_game())
+    sim.run_simulation(10)
+    results = sim.result
+    print(results)
