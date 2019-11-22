@@ -174,8 +174,8 @@ class LazyPlayer(Player):
 
 class Simulation:
 
-    def __init__(self, player_field, board=None,  seed=1234,
-                 randomize_players=True, goal=90):
+    def __init__(self, player_field=None, board=None,  seed=1234,
+                 randomize_players=True):
         """
         Initialize the Simulation class to manage simulations of the game
 
@@ -187,9 +187,10 @@ class Simulation:
 
         """
         self.board = board or Board()
-        self.seed = seed
+        random.seed(seed)
         self.randomize_players = randomize_players
         self.player_field = player_field or [Player, Player]
+        self.result = []
 
     def single_game(self):
         """
@@ -220,15 +221,15 @@ class Simulation:
                     return player.no_moves, type(player).__name__
 
 
-    def run_simulation(self):
+    def run_simulation(self, num_games = 10):
         """
         run a given number of games and stores the results in the Simulation
         object.
         :param:
 
         """
-
-        pass
+        for _ in range(num_games):
+            self.result.append(self.single_game())
 
     def get_results(self):
         """
@@ -236,7 +237,7 @@ class Simulation:
         the number of games won by different types
 
         """
-        pass
+        return self.result
 
 #Notes AH. Dont need a main
 # Write own tests at least one for each method
@@ -244,11 +245,5 @@ class Simulation:
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
-    print(sim.single_game())
-
-
-
-    """
-    sim = Simulation(player_field=[Player, LazyPlayer])
-    print(sim.single_game())
-    """
+    for _ in range(10):
+        print(sim.single_game())
