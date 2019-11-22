@@ -42,7 +42,6 @@ class Board:
 
         # AH note. Skip previous line and use "position" instead?
 
-
     def position_adjustment(self, position):
         """
         The method takes as argument the position of the player
@@ -76,6 +75,7 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
     def move(self):
         if self.board.goal_reached(self.position):
             return
+        # Stop moving after the goal is reached
         throw_die = random.randint(1, 6)
         # number between 1 and 6
         new_temporary_pos = self.position + throw_die
@@ -85,7 +85,6 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
         self.position = new_temporary_pos + self.adjustment
         # changes position if adjustment is not 0.
         self.no_moves += 1    # Incrasing the number of moves
-
 
     def check_goal_reached(self):    # Added method check goal reached
         if self.board.goal_reached(self.position):
@@ -110,6 +109,7 @@ class ResilientPlayer(Player):
         if self.adjustment < 0:
             self.position += self.extra_steps
         super().move()
+        # Do the regular move
 
 
 class LazyPlayer(Player):
@@ -138,8 +138,8 @@ class LazyPlayer(Player):
             # player drops steps
             super().move()
             # player move
-            die = self.position - old_position + self.dropped_steps\
-                  - self.adjustment
+            die = self.position - old_position + self.dropped_steps - \
+                self.adjustment
             """ 
             the current position of the player is: old position - 
             dropped_steps + die + adjustment. Rearranging to find the die.
@@ -153,26 +153,9 @@ class LazyPlayer(Player):
             # if not climbling a ladder, then the player make a regular move
 
 
-
-        """
-        if self.adjustment > 0:
-            if self.position - self.dropped_steps >
-                self.position -= self.dropped_steps
-        super().move()
-        """
-
-        """
-        Player.throw_die = random.randint(1, 6)
-        if Board.current_position in Board.ladder_dict:
-            while not Player.throw_die < self.dropped_steps:
-                return self.dropped_steps
-        else:
-            return Board.current_position == Board.current_position
-        """
-
 class Simulation:
 
-    def __init__(self, player_field, board=None,  seed=1234,
+    def __init__(self, player_field=None, board=None,  seed=1234,
                  randomize_players=True):
         """
         Initialize the Simulation class to manage simulations of the game
@@ -185,9 +168,10 @@ class Simulation:
 
         """
         self.board = board or Board()
-        self.seed = seed
+        random.seed(seed)
         self.randomize_players = randomize_players
-        self.player_field = player_field
+        self.player_field = player_field or [Player, Player]
+        self.result = []
 
     def single_game(self):
         """
@@ -205,45 +189,27 @@ class Simulation:
         player_list = [player_class(self.board)
                        for player_class in self.player_field]
         # Making a list of players of different classes in a single game
-
-        no_players = len(player_list)
-        position_list = [0 for _ in range(no_players)]
-        moves_list = [0 for _ in range(no_players)]
-
-        result_game = None    # Tuple of class of the winner and moves made
-
-        finished = False
         no_moves = 0
-        while not finished:
-            for player_class in player_list:
-                player_class.move()
+        # All players make moves as long as the game is not finished
+        while True:
+            for player in player_list:
+                player.move()
                 no_moves += 1
-                if player_class.position < 90:
-                    finished = False
-                else:
-                    finished = True
-        return result_game    # draft. Test fails!
+                if self.board.goal_reached(player.position):
+                    # Last line returning the number of moves of the class
+                    # instance that won the game,
+                    #  and the name of that type.
+                    return player.no_moves, type(player).__name__
 
-
-
-
-
-
-        position_list = [0 for _ in player_list]
-        moves_list = [0 for _ in player_list]
-
-# Loop
-
-
-    def run_simulation(self):
+    def run_simulation(self, num_games=10):
         """
         run a given number of games and stores the results in the Simulation
         object.
         :param:
 
         """
-
-        pass
+        for _ in range(num_games):
+            self.result.append(self.single_game())
 
     def get_results(self):
         """
@@ -251,16 +217,14 @@ class Simulation:
         the number of games won by different types
 
         """
+        return self.result
+
+    def durations_per_type(self):
         pass
 
 
 if __name__ == "__main__":
-    board = Board()
-    resilient_player = ResilientPlayer(board)
-    for _ in range(40):
-        resilient_player.move()
-        print(resilient_player.position)
-
-
-# Notes AH. Dont need a main
-# Write own tests at least one for each method
+    sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
+    sim.run_simulation(10)
+    results = sim.result
+    print(results)
