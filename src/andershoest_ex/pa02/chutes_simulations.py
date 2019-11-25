@@ -4,6 +4,7 @@ __author__ = 'Anders Mølmen Høst'
 __email__ = 'anderhos@nmbu.no'
 
 import random
+from collections import Counter
 
 
 class Board:
@@ -172,6 +173,7 @@ class Simulation:
         self.randomize_players = randomize_players
         self.player_field = player_field or [Player, Player]
         self.result = []
+        self.num_wins = {}
 
     def single_game(self):
         """
@@ -219,12 +221,56 @@ class Simulation:
         """
         return self.result
 
-    def durations_per_type(self):
-        pass
+    def winners_per_type(self):
+        """
+        Returns a dictionary mapping player types to the number of wins
+        with the key representing the player type and the value the
+        number of wins for that specific type.
 
+        :return:
+        """
+        winners = [winner[1] for winner in self.result]
+        # making a list of the type of winners
+        return Counter(winners)
+        # Using the Counter tool from the standard library to count the
+        # types in a dictionary
+
+
+    def durations_per_type(self):
+        """
+        Returning a dictionary mapping player types to lists of game durations
+        a dictionary of lists with the player type as key and the game
+        durations for that specific type as a list of values
+
+        """
+
+        lazy_list = []
+        player_list = []
+        resilient_list = []
+        durations_dict = {
+            LazyPlayer: [lazy_list],
+            Player: [player_list],
+            ResilientPlayer: [resilient_list]
+        }
+        for player in self.result:
+            if player == LazyPlayer:
+                lazy_list.append(self.result[0])
+            if player == Player:
+                player_list.append(self.result[0])
+            if player == ResilientPlayer:
+                resilient_list.append(self.result[0])
+
+            return durations_dict
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
-    sim.run_simulation(10)
+    sim.run_simulation(20)
     results = sim.result
+    win_per_type = sim.winners_per_type()
+    win_list = [winner[1] for winner in sim.result]
+    dur_per_type = sim.durations_per_type()
+    print(dur_per_type)
     print(results)
+    print(Counter(sim.result))
+    print(win_per_type)
+
