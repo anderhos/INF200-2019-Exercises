@@ -173,7 +173,6 @@ class Simulation:
         self.randomize_players = randomize_players
         self.player_field = player_field or [Player, Player]
         self.result = []
-        self.num_wins = {}
 
     def single_game(self):
         """
@@ -243,24 +242,8 @@ class Simulation:
         durations for that specific type as a list of values
 
         """
+        pass
 
-        lazy_list = []
-        player_list = []
-        resilient_list = []
-        durations_dict = {
-            LazyPlayer: [lazy_list],
-            Player: [player_list],
-            ResilientPlayer: [resilient_list]
-        }
-        for player in self.result:
-            if player == LazyPlayer:
-                lazy_list.append(self.result[0])
-            if player == Player:
-                player_list.append(self.result[0])
-            if player == ResilientPlayer:
-                resilient_list.append(self.result[0])
-
-            return durations_dict
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
@@ -268,9 +251,4 @@ if __name__ == "__main__":
     results = sim.result
     win_per_type = sim.winners_per_type()
     win_list = [winner[1] for winner in sim.result]
-    dur_per_type = sim.durations_per_type()
-    print(dur_per_type)
     print(results)
-    print(Counter(sim.result))
-    print(win_per_type)
-
