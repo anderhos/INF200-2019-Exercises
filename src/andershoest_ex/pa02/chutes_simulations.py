@@ -85,7 +85,7 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
         # look for ladders or snakes
         self.position = new_temporary_pos + self.adjustment
         # changes position if adjustment is not 0.
-        self.no_moves += 1    # Incrasing the number of moves
+        self.no_moves += 1    # Increasing the number of moves
 
     def check_goal_reached(self):    # Added method check goal reached
         if self.board.goal_reached(self.position):

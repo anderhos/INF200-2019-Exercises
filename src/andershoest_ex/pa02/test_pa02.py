@@ -5,21 +5,37 @@ __email__ = 'anderhos@nmbu.no'
 
 import chutes_simulations as cs
 
+class TestBoard:
+
+    def test_goal_reached(self):
+        """goal_reached() callable and returns bool"""
+        b = cs.Board()
+        assert isinstance(b.goal_reached(1), bool)
+
 class TestPlayer:
 
-    def test_change_position(self, position=0):
+    def test_first_move(self):
         """
-        Testing that the position of the player must change after the player moves
+        Testing the first move. The player position must be greater than
+        the starting position at 0.
         """
         board = cs.Board()
         player = cs.Player(board)
-        initial_position = player.position
+        player.position = 0
         player.move()
-        new_position = player.position
-        assert initial_position =! new_position
+        assert player.position > 0
 
-    def test_goal_reached(self):
+    def test_snake(self):
+        """
+        Test that the position of the player must be less than the die
+        after falling down a snake
+
+        """
         board = cs.Board
-        player = cs.Player
-        assert board.goal_reached()
+        player = cs.Player(board)
+        player.position = pos
+        player.move()
+        assert player.adjustment < 0
+
+        # Error not done
 
