@@ -41,8 +41,6 @@ class Board:
         """
         return position >= self.goal
 
-        # AH note. Skip previous line and use "position" instead?
-
     def position_adjustment(self, position):
         """
         The method takes as argument the position of the player
@@ -94,7 +92,7 @@ class Player:    # AH: correct? or should it be Player(board)? Test OK
 
 class ResilientPlayer(Player):
 
-    def __init__(self, board, extra_steps=1):
+    def __init__(self, board, extra_steps=5):
         """
         Initializes ResilientPlayer as Subclass of Player.
 
@@ -115,7 +113,7 @@ class ResilientPlayer(Player):
 
 class LazyPlayer(Player):
 
-    def __init__(self, board, dropped_steps=1):
+    def __init__(self, board, dropped_steps=5):
         """
        Initializes ResilientPlayer as Subclass of Player.
 
@@ -247,8 +245,11 @@ class Simulation:
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
-    sim.run_simulation(20)
+    sim.run_simulation(1000)
     results = sim.result
     win_per_type = sim.winners_per_type()
     win_list = [winner[1] for winner in sim.result]
-    print(results)
+    board = Board()
+    ladders = board.ladder_dict
+    print(ladders[2])
+
