@@ -245,11 +245,13 @@ class Simulation:
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
-    sim.run_simulation(1000)
+    sim.run_simulation(1)
     results = sim.result
     win_per_type = sim.winners_per_type()
     win_list = [winner[1] for winner in sim.result]
     board = Board()
-    ladders = board.ladder_dict
-    print(ladders[2])
+    player = Player(board)
+    #player.position = board.snake_dict[24]
+    player_temp_pos = 24
+    print(player.adjustment)
 

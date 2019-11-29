@@ -47,15 +47,18 @@ class TestPlayer:
 
     def test_snake(self):
         """
-        Test that the position of the player must be less than the die
-        after falling down a snake
+        Test that the position of the player must be less after falling down
+        a snake
 
         """
         board = cs.Board
         player = cs.Player(board)
-        player.position = pos
-        player.move()
-        assert player.adjustment < 0
+        for player.position in board.ladder_dict:
+            assert player.adjustment > 0
 
         # Error not done
+
+
+
+
 
