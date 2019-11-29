@@ -51,14 +51,29 @@ class TestPlayer:
         a snake
 
         """
+        pass
+
+    def test_bottom_ladder(self):
+        """
+        testing that the player cannot stand on the bottom of a ladder
+        """
         board = cs.Board
         player = cs.Player(board)
         for player.position in board.ladder_dict:
-            assert player.adjustment > 0
+            assert not player.position == board.ladder_dict
 
-        # Error not done
+        # test passes
 
+    def test_top_chute(self):
+        """
+        testing that the player cannot stand on the top of a chute
 
+        """
+        board = cs.Board
+        player = cs.Player(board)
+        assert not player.position == board.snake_dict[24]
+
+        # Test passes, but not sure if it is correct, implement as above?
 
 
 
