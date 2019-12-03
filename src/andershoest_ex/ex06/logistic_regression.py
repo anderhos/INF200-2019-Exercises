@@ -160,8 +160,8 @@ Code
 """
 
 
-__author__ = "Yngve Mardal Moe"
-__email__ = "yngve.m.moe@gmail.com"
+__author__ = "Anders Mølmen Høst"
+__email__ = "anderhos@nmbu.no"
 
 
 import numpy as np
