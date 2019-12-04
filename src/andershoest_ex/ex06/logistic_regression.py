@@ -263,12 +263,7 @@ def logistic_gradient(coef, X, y):
     """
     # Your code here
     y_hat = predict_proba(coef, X)
-    print(y_hat)
-    print((y_hat - y).shape)
-    print(X.shape)
-    x_hat = X.T@(y_hat - y).reshape(3,1)
-
-    return x_hat.sum(axis=1)
+    return X.T@(y_hat - y)    # .reshape(3,1)
 
 
 class LogisticRegression(BaseEstimator, ClassifierMixin):
@@ -327,7 +322,12 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
             A numpy random state object or a seed for a numpy random state object.
         """
         # Your code here
-        pass
+        self.max_iter = max_iter
+        self.tol = tol
+        self.learning_rate = learning_rate
+        self.random_state = random_state
+        self.counter = 0
+
 
     def _has_converged(self, coef, X, y):
         r"""Whether the gradient descent algorithm has converged.
@@ -359,7 +359,9 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
             True if the convergence criteria above is met, False otherwise.
         """
         # Your code here
-        pass
+        if np.linalg.norm(logistic_gradient(coef, X, y)) < self.tol:
+            return True
+        return False
 
     def _fit_gradient_descent(self, coef, X, y):
         r"""Fit the logisitc regression model to the data given initial weights
@@ -397,7 +399,14 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
             The logistic regression weights
         """
         # Your code here
-        pass
+        counter = 0
+        while True:
+            coef -= self.learning_rate * logistic_gradient(coef, X, y)
+            if self._has_converged(coef, X, y):
+                return coef
+            if counter == self.max_iter:
+                return coef
+            counter += 1
 
     def fit(self, X, y):
         """Fit a logistic regression model to the data.
@@ -491,6 +500,10 @@ if __name__ == "__main__":
 
     # Fit a logistic regression model to the X and y vector
     # Fill in your code here.
+    lr_model = LogisticRegression()
+    fit_model = lr_model.fit(X, y)
+    #print(fit_model)
+
     # Create a logistic regression object and fit it to the dataset
 
     # Print performance information
