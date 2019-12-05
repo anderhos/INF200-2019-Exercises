@@ -25,7 +25,8 @@ implement the following five functions:
   * ``sigmoid(z)``
   * ``predict_proba(w, X)``
   * ``logistic_gradient(w, X, y)``
-  * ``LogisticRegression.__init__(self, max_iter=1000, tol=1e-5, learning_rate=0.01, random_state=None)``
+  * ``LogisticRegression.__init__(self, max_iter=1000, tol=1e-5,
+  learning_rate=0.01, random_state=None)``
   * ``LogisticRegression._fit_gradient_descent(self, coef, X, y)``
   * ``LogisticRegression._has_converged(self, coef, X, y)``
 
@@ -100,13 +101,15 @@ for this problem is one on the following form:
 
 .. math::
 
-    C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = -\sum_i y_i log(p(\mathbf{x}_i; \mathbf{w})) + (1-y_i) log(1 - p(\mathbf{x}_i; \mathbf{w})),
+    C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = -\sum_i y_i log(p(\mathbf{x}_i;
+    \mathbf{w})) + (1-y_i) log(1 - p(\mathbf{x}_i; \mathbf{w})),
 
 which, with the notation above, becomes
 
 .. math::
 
-    C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = -\sum_i y_i log(\hat{y}_i) + (1 - y_i) log(1 - \hat{y}_i).
+    C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = -\sum_i y_i log(\hat{y}_i) +
+    (1 - y_i) log(1 - \hat{y}_i).
 
 Finding the best model:
 ~~~~~~~~~~~~~~~~~~~~~~~
@@ -114,8 +117,8 @@ Finding the best model:
 Now, we wish to find the :math:`\mathbf{w}` that minimise the cost function
 above. To do that, we use *gradient descent*, which we learned about in
 lecture 10. This optimisation algorithm works by iteratively modifying
-:math:`\mathbf{w}` until we have a good guess for the best set of coefficients,
-:math:`\mathbf{w}`.
+:math:`\mathbf{w}` until we have a good guess for the best set of
+coefficients, :math:`\mathbf{w}`.
 
 The way gradient descent works is by realising that the gradient of a function,
 
@@ -129,7 +132,8 @@ effect on the value of :math:`C`, then we update it the following way
 
 .. math::
 
-    \mathbf{w}^{\text{new}} = w - \eta \nabla_w C(\mathbf{w}; \mathbf{X}, \mathbf{y}),
+    \mathbf{w}^{\text{new}} = w - \eta \nabla_w C(\mathbf{w}; \mathbf{X},
+     \mathbf{y}),
 
 where :math:`\mathbf{w}^{\text{new}}` is the new guess for a good set of 
 regression coefficients and :math:`\eta` is a parameter that specifies how 
@@ -142,7 +146,8 @@ is given by
 
 .. math::
 
-    \nabla_w C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = \sum_i \mathbf{x}_i (y_i - \hat{y}_i).
+    \nabla_w C(\mathbf{w}; \mathbf{X}, \mathbf{y}) = \sum_i \mathbf{x}_i
+    (y_i - \hat{y}_i).
 
 Final note
 ----------
@@ -169,6 +174,7 @@ from sklearn.base import BaseEstimator, ClassifierMixin
 from sklearn.exceptions import NotFittedError
 from sklearn.utils import check_random_state, check_X_y
 
+
 def sigmoid(z):
     r"""Perform a logistic transform on the input.
 
@@ -191,6 +197,7 @@ def sigmoid(z):
     """
     # Your code here
     return 1/(1 + np.exp(-z))
+
 
 def predict_proba(coef, X):
     r"""Predict the class probabilities for each data point in :math:`X`.
@@ -233,14 +240,17 @@ def logistic_gradient(coef, X, y):
 
     .. math::
 
-        \nabla_w L(\mathbf{w}; X, \mathbf{y}) = \sum_i \mathbf{x}_i (\hat{y}_i - y_i),
+        \nabla_w L(\mathbf{w}; X, \mathbf{y}) = \sum_i \mathbf{x}_i
+        (\hat{y}_i - y_i),
 
     or, elementwise,
 
     .. math::
 
-        \left[\nabla_w L(\mathbf{w}; X, \mathbf{y})\right]_j = \frac{\partial L}{\partial w_j}
-                                                             = \sum_i X_{ij} (\hat{y}_i - y_i),
+        \left[\nabla_w L(\mathbf{w}; X, \mathbf{y})\right]_j = \frac
+        {\partial L}{\partial w_j}
+                                                             = \sum_i X_{ij}
+                                                             (\hat{y}_i - y_i),
 
     where :math:`\hat{y}_i` is the predicted value for data point
     :math:`i` and is given by :math:`\sigma(x_i^Tw)`, where
@@ -263,7 +273,31 @@ def logistic_gradient(coef, X, y):
     """
     # Your code here
     y_hat = predict_proba(coef, X)
-    return X.T@(y_hat - y)    # .reshape(3,1)
+
+    """
+    AH note: Trying out a lot of code to make use of broadcasting and
+    singleton axes to avoid using the transpose.
+    
+    Any advice?
+    """
+    print(f"X.shape: {X.shape}")
+    print(f"X.T.shape: {X.T.shape}")
+    x_row_first = X[np.newaxis, :]
+    print(f"x_row_first shape: {x_row_first.shape}")
+    x_row_first = X.mean(axis=0, keepdims=True)
+    print(f"x_row_first second shape: {x_row_first.shape}")
+    x_col_first = X[:, np.newaxis]
+    print(f"x_co._first shape: {x_col_first.shape}")
+    x_col_first = X.mean(axis=0, keepdims=True)
+    print(f"x_col_first second shape: {x_col_first.shape}")
+    print(f"y shape: {y.shape}")
+    print(f"y_hat shape: {y_hat.shape}")
+    y_singleton = y[np.newaxis, :]
+    y_hat_singleton = y_hat[np.newaxis, :]
+    print(f"y_singleton: {y_singleton.shape}")
+    print(f"y_hat_singleton: {y_hat_singleton.shape}")
+
+    return X.T@(y_hat - y)
 
 
 class LogisticRegression(BaseEstimator, ClassifierMixin):
@@ -319,15 +353,14 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         learning_rate : float (default=0.01)
             The step-size for the gradient descent updates.
         random_state : np.random.random_state or int or None (default=None)
-            A numpy random state object or a seed for a numpy random state object.
+            A numpy random state object or a seed for a numpy random state
+            object.
         """
         # Your code here
         self.max_iter = max_iter
         self.tol = tol
         self.learning_rate = learning_rate
         self.random_state = random_state
-        self.counter = 0
-
 
     def _has_converged(self, coef, X, y):
         r"""Whether the gradient descent algorithm has converged.
@@ -371,7 +404,8 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
 
         .. math::
 
-            \mathbf{w}^{(k)} \gets \mathbf{w}^{(k-1)} - \eta \nabla L(\mathbf{w}^{(k-1)}; X, \mathbf{y}),
+            \mathbf{w}^{(k)} \gets \mathbf{w}^{(k-1)} - \eta \nabla
+            L(\mathbf{w}^{(k-1)}; X, \mathbf{y}),
 
         where :math:`\mathbf{w}^{(k)}` is the coefficient vector at iteration 
         ``k``, :math:`\mathbf{w}^{(k-1)}` is the coefficient vector at 
@@ -502,7 +536,6 @@ if __name__ == "__main__":
     # Fill in your code here.
     lr_model = LogisticRegression()
     fit_model = lr_model.fit(X, y)
-    #print(fit_model)
 
     # Create a logistic regression object and fit it to the dataset
 
