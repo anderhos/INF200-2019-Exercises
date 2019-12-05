@@ -3,6 +3,11 @@
 __author__ = 'Anders Mølmen Høst'
 __email__ = 'anderhos@nmbu.no'
 
+"""
+Note from author: I did not manage to implement all the functions.
+
+"""
+
 import random
 from collections import Counter
 
@@ -232,7 +237,6 @@ class Simulation:
         # Using the Counter tool from the standard library to count the
         # types in a dictionary
 
-
     def durations_per_type(self):
         """
         Returning a dictionary mapping player types to lists of game durations
@@ -245,13 +249,10 @@ class Simulation:
 
 if __name__ == "__main__":
     sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
-    sim.run_simulation(1)
+    sim.run_simulation(20)
     results = sim.result
     win_per_type = sim.winners_per_type()
-    win_list = [winner[1] for winner in sim.result]
+    win_list = [winner for winner in sim.result]
     board = Board()
     player = Player(board)
-    #player.position = board.snake_dict[24]
-    player_temp_pos = 24
-    print(player.adjustment)
-
+    print(win_list)

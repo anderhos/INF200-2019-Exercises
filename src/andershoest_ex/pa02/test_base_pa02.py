@@ -4,6 +4,10 @@
 Minimal set of compatibility tests for PA02.
 """
 
+"""
+Note from Anders Mølmen Høst: I managed 24 out of 26 tests.
+"""
+
 __author__ = 'Hans Ekkehard Plesser'
 __email__ = 'hans.ekkehard.plesser@nmbu.no'
 
