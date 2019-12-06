@@ -273,30 +273,6 @@ def logistic_gradient(coef, X, y):
     """
     # Your code here
     y_hat = predict_proba(coef, X)
-
-    """
-    AH note: Trying out a lot of code to make use of broadcasting and
-    singleton axes to avoid using the transpose.
-    
-    Any advice?
-    """
-    print(f"X.shape: {X.shape}")
-    print(f"X.T.shape: {X.T.shape}")
-    x_row_first = X[np.newaxis, :]
-    print(f"x_row_first shape: {x_row_first.shape}")
-    x_row_first = X.mean(axis=0, keepdims=True)
-    print(f"x_row_first second shape: {x_row_first.shape}")
-    x_col_first = X[:, np.newaxis]
-    print(f"x_co._first shape: {x_col_first.shape}")
-    x_col_first = X.mean(axis=0, keepdims=True)
-    print(f"x_col_first second shape: {x_col_first.shape}")
-    print(f"y shape: {y.shape}")
-    print(f"y_hat shape: {y_hat.shape}")
-    y_singleton = y[np.newaxis, :]
-    y_hat_singleton = y_hat[np.newaxis, :]
-    print(f"y_singleton: {y_singleton.shape}")
-    print(f"y_hat_singleton: {y_hat_singleton.shape}")
-
     return X.T@(y_hat - y)
 
 
@@ -434,13 +410,10 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         """
         # Your code here
         counter = 0
-        while True:
+        while not self._has_converged(coef, X, y) and counter == self.max_iter:
             coef -= self.learning_rate * logistic_gradient(coef, X, y)
-            if self._has_converged(coef, X, y):
-                return coef
-            if counter == self.max_iter:
-                return coef
             counter += 1
+        return coef
 
     def fit(self, X, y):
         """Fit a logistic regression model to the data.
