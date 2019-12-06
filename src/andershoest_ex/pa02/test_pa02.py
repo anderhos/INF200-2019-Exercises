@@ -5,6 +5,7 @@ __email__ = 'anderhos@nmbu.no'
 
 import chutes_simulations as cs
 
+
 class TestBoard:
 
     def test_snake_position(self):
@@ -32,6 +33,7 @@ class TestBoard:
         board = cs.Board()
         assert board.goal == 90
 
+
 class TestPlayer:
 
     def test_first_move(self):
@@ -45,14 +47,6 @@ class TestPlayer:
         player.move()
         assert player.position > 0
 
-    def test_snake(self):
-        """
-        Test that the position of the player must be less after falling down
-        a snake
-
-        """
-        pass
-
     def test_bottom_ladder(self):
         """
         testing that the player cannot stand on the bottom of a ladder
@@ -62,8 +56,6 @@ class TestPlayer:
         for player.position in board.ladder_dict:
             assert not player.position == board.ladder_dict
 
-        # test passes
-
     def test_top_chute(self):
         """
         testing that the player cannot stand on the top of a chute
@@ -72,8 +64,3 @@ class TestPlayer:
         board = cs.Board
         player = cs.Player(board)
         assert not player.position == board.snake_dict[24]
-
-        # Test passes, but not sure if it is correct, implement as above?
-
-
-
