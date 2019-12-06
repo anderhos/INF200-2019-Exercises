@@ -410,7 +410,7 @@ class LogisticRegression(BaseEstimator, ClassifierMixin):
         """
         # Your code here
         counter = 0
-        while not self._has_converged(coef, X, y) and counter == self.max_iter:
+        while not self._has_converged(coef, X, y) and counter < self.max_iter:
             coef -= self.learning_rate * logistic_gradient(coef, X, y)
             counter += 1
         return coef
