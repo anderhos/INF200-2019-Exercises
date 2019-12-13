@@ -127,6 +127,7 @@ class LazyPlayer(Player):
        :param: board, dropped_steps
        """
         super().__init__(board)
+        self.no_moves = 0
         self.dropped_steps = dropped_steps
 
     def move(self):
@@ -144,6 +145,8 @@ class LazyPlayer(Player):
             # player drops steps
             super().move()
             # player move
+            self.no_moves += 1
+            # update number of moves
             die = self.position - old_position + self.dropped_steps - \
                 self.adjustment
             """ 
@@ -254,7 +257,10 @@ class Simulation:
         durations for that specific type as a list of values
 
         """
-        pass
+        for score in self.result:
+            return Counter(self.result)
+            # try out, not working properly
+
 
 
 if __name__ == "__main__":
@@ -263,7 +269,7 @@ if __name__ == "__main__":
     sim.run_simulation(20)
     results = sim.result
     win_per_type = sim.winners_per_type()
-    win_list = [winner for winner in sim.result]
-    board = Board()
-    player = Player(board)
-    print(win_list)
+    dur_per_type = sim.durations_per_type()
+    print(results)
+    print(win_per_type)
+    print(dur_per_type)
