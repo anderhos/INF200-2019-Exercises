@@ -237,13 +237,3 @@ dmypy.json
 .history
 
 # End of https://www.gitignore.io/api/python,pycharm+all,visualstudiocode,jupyternotebooks
-
-src/andershoest_ex/pa02/scratch_pa01_snakes.py
-
-src/andershoest_ex/pa02/scratch.py
-
-src/andershoest_ex/pa02/Scratch-testing.ipynb
-
-src/andershoest_ex/pa02/Scratch-general.ipynb
-
-src/andershoest_ex/ex06/scratch_ex06.py
