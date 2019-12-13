@@ -104,6 +104,7 @@ class ResilientPlayer(Player):
         :param: board, extra_steps
         """
         super().__init__(board)
+        self.no_moves = 0
         self.extra_steps = extra_steps
 
     def move(self):    # AH note. Swich move with extra_steps?
@@ -113,6 +114,7 @@ class ResilientPlayer(Player):
         if self.adjustment < 0:
             self.position += self.extra_steps
         super().move()
+        self.no_moves += 1
         # Do the regular move
 
 
@@ -172,10 +174,18 @@ class Simulation:
 
         """
         self.board = board or Board()
-        random.seed(seed)
+        random.seed(seed)    # note AH: What does this line actually do?
         self.randomize_players = randomize_players
         self.player_field = player_field or [Player, Player]
         self.result = []
+
+    def randomize(self):
+        """
+        defining a function to shuffle the players in randomly order
+
+        """
+        if self.randomize_players is True:
+            random.shuffle(self.player_field)
 
     def single_game(self):
         """
@@ -189,7 +199,7 @@ class Simulation:
         Making a list of player instances for the different player types.
 
         """
-
+        self.randomize()
         player_list = [player_class(self.board)
                        for player_class in self.player_field]
         # Making a list of players of different classes in a single game
@@ -248,7 +258,8 @@ class Simulation:
 
 
 if __name__ == "__main__":
-    sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer])
+    sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer],
+                     randomize_players=True)
     sim.run_simulation(20)
     results = sim.result
     win_per_type = sim.winners_per_type()
