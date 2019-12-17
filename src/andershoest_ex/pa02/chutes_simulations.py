@@ -249,10 +249,19 @@ class Simulation:
         # Using the Counter tool from the standard library to count the
         # types in a dictionary
 
-    def convert(self, tup, di):
-        for a, b in tup:
-            di.setdefault(b, []).append(a)
-        return di
+    def convert(self, tuples, dictionary):
+        """
+        Defining a function to convert result tuples into a dictionary
+        Source:
+        https://www.geeksforgeeks.org/python-convert-list-tuples-dictionary/
+
+        """
+        for a, b in tuples:
+            dictionary.setdefault(b, []).append(a)
+            # Changing key and value positions
+            # Set default returns value of the key if it is in the dictionary
+            # Otherwise it inserts key with value
+        return dictionary
 
     def durations_per_type(self):
         """
@@ -261,10 +270,9 @@ class Simulation:
         durations for that specific type as a list of values
 
         """
+        temp_dict = {}
         # Creating an empty dictionary
-        dict_durations = {}
-        for a, b in self.result:
-            dict_durations.setdefault(b, []. append(a))
+        dict_durations = self.convert(self.result, temp_dict)
         return dict_durations
 
         # appending durations
