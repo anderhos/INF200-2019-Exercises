@@ -275,9 +275,18 @@ class Simulation:
         dict_durations = self.convert(self.result, temp_dict)
         return dict_durations
 
-        # appending durations
+    def players_per_type(self):
+        """
+        Returning a dictionary mapping player type to how many instances of
+        that type participated.
 
-
+        simulation with 20 games. Player, Lazy, Resilient. 20 of each?
+        """
+        players_in_game = [type(p(self.board)).__name__ for p in
+                           self.player_field]
+        dict_players = {player_type: players_in_game.count(player_type) for
+                        player_type in players_in_game}
+        return dict_players
 
 
 if __name__ == "__main__":
@@ -287,6 +296,8 @@ if __name__ == "__main__":
     results = sim.result
     win_per_type = sim.winners_per_type()
     dur_per_type = sim.durations_per_type()
+    p_per_type = sim.players_per_type()
     print(results)
     print(win_per_type)
     print(dur_per_type)
+    print(p_per_type)
