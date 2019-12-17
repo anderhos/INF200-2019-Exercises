@@ -176,10 +176,11 @@ class Simulation:
 
         """
         self.board = board or Board()
-        random.seed(seed)    # note AH: What does this line actually do?
+        random.seed(seed)
         self.randomize_players = randomize_players
         self.player_field = player_field or [Player, Player]
         self.result = []
+        self.player_list = []
 
     def randomize(self):
         """
@@ -202,13 +203,13 @@ class Simulation:
 
         """
         self.randomize()
-        player_list = [player_class(self.board)
-                       for player_class in self.player_field]
+        self.player_list = [player_class(self.board)
+                            for player_class in self.player_field]
         # Making a list of players of different classes in a single game
         no_moves = 0
         # All players make moves as long as the game is not finished
         while True:
-            for player in player_list:
+            for player in self.player_list:
                 player.move()
                 no_moves += 1
                 if self.board.goal_reached(player.position):
@@ -278,21 +279,19 @@ class Simulation:
     def players_per_type(self):
         """
         Returning a dictionary mapping player type to how many instances of
-        that type participated.
-
-        simulation with 20 games. Player, Lazy, Resilient. 20 of each?
+        that type participated. Using a dictionary comprehension and
+        built in count function.
         """
-        players_in_game = [type(p(self.board)).__name__ for p in
-                           self.player_field]
-        dict_players = {player_type: players_in_game.count(player_type) for
-                        player_type in players_in_game}
+        dict_players = {type(player).__name__: self.player_list.count(player)
+                        for player in self.player_list}
         return dict_players
 
 
 if __name__ == "__main__":
-    sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer],
+    sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer,
+                                   Player, Player],
                      randomize_players=True)
-    sim.run_simulation(20)
+    sim.run_simulation(200)
     results = sim.result
     win_per_type = sim.winners_per_type()
     dur_per_type = sim.durations_per_type()
