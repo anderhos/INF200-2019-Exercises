@@ -282,21 +282,23 @@ class Simulation:
         that type participated. Using a dictionary comprehension and
         built in count function.
         """
-        dict_players = {type(player).__name__: self.player_list.count(player)
-                        for player in self.player_list}
+        players = [type(player(self.board)).__name__ for player in
+                   self.player_field]
+        dict_players = {player: players.count(player) for player
+                        in players}
         return dict_players
 
 
 if __name__ == "__main__":
-    sim = Simulation(player_field=[Player, LazyPlayer, ResilientPlayer,
+    sim = Simulation(player_field=[LazyPlayer, ResilientPlayer,
                                    Player, Player],
                      randomize_players=True)
-    sim.run_simulation(200)
+    sim.run_simulation(20)
     results = sim.result
-    win_per_type = sim.winners_per_type()
-    dur_per_type = sim.durations_per_type()
-    p_per_type = sim.players_per_type()
+    winners_per_type = sim.winners_per_type()
+    durations_per_type = sim.durations_per_type()
+    players_per_type = sim.players_per_type()
     print(results)
-    print(win_per_type)
-    print(dur_per_type)
-    print(p_per_type)
+    print(winners_per_type)
+    print(durations_per_type)
+    print(players_per_type)
