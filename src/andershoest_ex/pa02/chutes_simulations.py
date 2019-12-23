@@ -203,8 +203,8 @@ class Simulation:
 
         """
         self.randomize()
-        self.player_list = [player_class(self.board)
-                            for player_class in self.player_field]
+        self.player_list = [player(self.board)
+                            for player in self.player_field]
         # Making a list of players of different classes in a single game
         no_moves = 0
         # All players make moves as long as the game is not finished
